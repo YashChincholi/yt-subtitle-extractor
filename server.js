@@ -8,6 +8,7 @@ import { YoutubeTranscript } from "youtube-transcript";
 dotenv.config();
 
 const app = express();
+app.set("trust proxy", 1);
 app.disable("x-powered-by");
 
 const PORT = process.env.PORT || 3000;
@@ -36,8 +37,6 @@ app.use(
 );
 
 app.use(helmet({ crossOriginResourcePolicy: false }));
-
-
 
 app.use(express.json({ limit: "20kb" }));
 
