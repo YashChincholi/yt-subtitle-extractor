@@ -130,6 +130,25 @@ app.post("/api/transcript", async (req, res) => {
   }
 });
 
+app.get("/debug-transcript", async (_req, res) => {
+  try {
+    const transcript = await YoutubeTranscript.fetchTranscript(
+      "https://youtu.be/dJPVV0nFFWY",
+    );
+
+    res.json({
+      success: true,
+      count: transcript.length,
+    });
+  } catch (err) {
+    res.json({
+      success: false,
+      name: err.name,
+      message: err.message,
+    });
+  }
+});
+
 app.use((_req, res) => {
   res.status(404).json({ success: false, error: "Endpoint not found." });
 });
