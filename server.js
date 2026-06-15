@@ -118,10 +118,14 @@ app.post("/api/transcript", async (req, res) => {
       });
     }
 
+    console.error("=== TRANSCRIPT ERROR ===");
+    console.error(error);
+    console.error("Message:", error?.message);
+    console.error("Stack:", error?.stack);
+
     return res.status(500).json({
       success: false,
-      error:
-        "Unable to extract subtitles. Ensure captions are enabled and the video is public.",
+      error: error?.message || "Unknown error",
     });
   }
 });
