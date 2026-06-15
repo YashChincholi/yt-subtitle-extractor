@@ -14,20 +14,30 @@ const PORT = process.env.PORT || 3000;
 const IS_PRODUCTION = process.env.NODE_ENV === "production";
 const ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS
   ? process.env.ALLOWED_ORIGINS.split(",").map((o) => o.trim())
-  : [];
-
-app.use(helmet({ crossOriginResourcePolicy: false }));
+  : null;
 
 app.use(
   cors({
     origin(origin, callback) {
       if (!IS_PRODUCTION) return callback(null, true);
-      if (!origin || ALLOWED_ORIGINS.includes(origin))
+
+      // Same-origin requests or no configured whitelist
+      if (!origin || !ALLOWED_ORIGINS) {
         return callback(null, true);
-      return callback(new Error("Not allowed by CORS"));
+      }
+
+      if (ALLOWED_ORIGINS.includes(origin)) {
+        return callback(null, true);
+      }
+
+      callback(new Error("Not allowed by CORS"));
     },
   }),
 );
+
+app.use(helmet({ crossOriginResourcePolicy: false }));
+
+
 
 app.use(express.json({ limit: "20kb" }));
 
