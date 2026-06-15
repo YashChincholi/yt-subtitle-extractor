@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@layer components {
+  .transcript-row {
+    @apply flex gap-3 items-start rounded-lg px-2 py-1.5 hover:bg-zinc-800/60 transition-colors;
+  }
+
+  .transcript-time {
+    @apply text-red-400 font-bold select-none whitespace-nowrap tabular-nums;
+  }
+
+  .transcript-text {
+    @apply text-zinc-300 break-words flex-1 leading-relaxed;
+  }
+
+  .status-msg {
+    @apply text-center text-xs font-medium px-4 py-2.5 rounded-xl border;
+  }
+
+  .status-loading {
+    @apply bg-zinc-950 border-zinc-800 text-amber-400;
+  }
+
+  .status-success {
+    @apply bg-emerald-950/60 border-emerald-800/60 text-emerald-400;
+  }
+
+  .status-error {
+    @apply bg-red-950/60 border-red-900/60 text-red-400;
+  }
+}
